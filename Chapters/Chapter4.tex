@@ -1,0 +1,129 @@
+% Chapter 4
+
+\chapter{Phase Field Models} % Main chapter title
+
+\label{Chapter4} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Stephan Problem}
+
+The goal of this section is to give an overview the Stephan problem using notation mostly from Guenther and Lee's book, \parencite{GuetherandLee}. The Stephan problem describes change-of-phase problems. The problem addressed in this section will be a phase change between water and ice. At the initial time the problem discussed here consists of an insulated pipe of length two with the left half filled with water and the right half filled with ice with heat applied to just the left end. Let the specific heat, density, thermoconductivity, and temperature of water be denoted respectively by $c_w, \, \rho_w, \,  k_w,$ and $u_w$. Similarly for ice with $i$ instead of $w$. Let $s(t)$ be the location of the ice-water interface at any given time. Our objective is to find the temperature distribution over time, $t>0$. \\
+Both the ice section and the water section satisfy the heat equation. Combining the constants, let $a_w=k_w/c_w \rho_w$ and similarly for ice. Then
+\begin{eqnarray} \begin{cases} 
+\pd{}{u_w}{t}=a_w \pd{2}{u_w}{x}  & 0< x < s(t), \quad t>0 \\
+\pd{}{u_i}{t}=a_i \pd{2}{u_i}{x}  & s(t) <x <2, \quad t>0. \label{mainstefanpde}
+\end{cases}
+\end{eqnarray}
+
+For simplicity the $w$ and $i$ subscripts of $u$ will be dropped. Let the temperature at the ice-water interface be zero, 
+\begin{eqnarray}
+	u\big|_{s(t)^-}= u\big|_{s(t)^+} =0
+\end{eqnarray}
+and let
+\begin{eqnarray}
+	a u_x\big|_{s(t)^-}= a u_x\big|_{s(t)^+}- \mathcal{L}\dot{s}\quad t\ge0
+\end{eqnarray}
+where $\dot{s}$ is the time derivative of the position of the phase transition. 
+Approaching this system in a weak sense, let $\varphi \in C_0^\infty(Q)$ where $Q = (0,2) \times (0,T)$ and $u \in H^1(Q)$. 
+Changing notations slightly let 
+\begin{subequations}
+\begin{eqnarray}
+u_t - \grad (k \grad u) = 0 \quad \text{ on } \Omega_1 \cup \Omega_2 \label{equn gradu}\\ 
+-[k \grad u \cdot \nu] = \mathcal{L} v \cdot \nu \quad \text{ on } S \label{equn jump}\\ 
+u = 0 \quad \text{ on } S
+\end{eqnarray}
+\end{subequations}
+Where $S$ is dependent on $t$ and is the location of the interface denoted as $s(t)$ above. Where $Q = \Omega \times (0,T)$. The spacial bounded domain is denoted as $\Omega$, where $\Omega_i$, $i=1,2$, are the domains of each phase, letting $\Omega_1$ be water and $\Omega_2$ be ice. The location of the phase change $S$ is equal to $S := \partial Q_1 \cap \partial Q_2$. The latent heat is denoted as $\mathcal{L}$ and $v$ is the velocity of the interface, given as $\mathcal{L}$ and $\dot{s}$ respectively. The value $k$ is also set in each $\Omega_i$ and is denoted $a$ above. The vector $\nu$ is the unit vector field normal to $S \cap \Omega \times \{t\}$. Let $n_x$ be the unit normal vector in the spatial domain and $n_t$ be the unit normal vector time. \\
+Let $\varphi \in C_0^{\infty} (Q)$ and first consider 
+\begin{eqnarray*}
+\iint_{Q_1} u_t \varphi dx dt &=& -\iint_{Q_1} u \varphi_t dx dt + \int_{\partial Q_1} u \varphi dS\\
+&=& -\iint_{Q_1} u \varphi_t dx dt + \int_{\partial Q_1 \setminus S} u \varphi dS + \int_{S} u \varphi dS \\
+&=& -\iint_{Q_1} u \varphi_t dx dt 
+\end{eqnarray*}
+since $u=0$ on $S$ and $\varphi =0$ on $\partial Q_1 \setminus S$. This holds for $Q_2$ as well. Now to formulate the weak form of the Stefan problem consider summing both domains in equation \ref{equn gradu} and multiplying them by $\varphi$. Denoting $Q_{1,2} := Q_1 \cup Q_2$ we begin with
+
+
+\begin{align*}
+0 =& \iint_{Q_1}  u_t\varphi dx dt  + \iint_{Q_1} - \grad(k \grad u) \varphi dx dt +\iint_{Q_2}  u_t\varphi dx dt  + \iint_{Q_2} - \grad(k \grad u) \varphi dx dt  \\*
+=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_1} (k \grad u) \grad\varphi dx dt - \int_{\partial Q_1} \varphi(k \grad u) \cdot n_x^1 dS +  \iint_{Q_2} (k \grad u) \grad\varphi dx dt \\*
+&  \hspace{10cm}- \int_{\partial Q_2} \varphi (k \grad u)\cdot n^2_x  dS \\*
+\end{align*}
+calculated using Greens theorem in the spatial domain and $n_x^i$, $i=1,2$, are the normal vectors out of the respective $\Omega_i$ and let $n_x = n_x^1=-n_x^2$. Note as above $\varphi=0$ on the boundaries that are not $S$. Also note that equation \ref{equn jump} can be rewritten noting with $n_x$ instead of $\nu$, thus
+
+\begin{eqnarray*}
+0 &=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_1} (k \grad u) \grad\varphi dx dt - \int_{\partial Q_1} \varphi(k \grad u) \cdot n_x dS + \iint_{Q_2} (k \grad u) \grad\varphi dx dt \\*
+& & \hspace{10cm}+ \int_{\partial Q_2} \varphi (k \grad u)\cdot n_x  dS \\*
+&=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_1} (k \grad u) \grad\varphi dx dt + \iint_{Q_2} (k \grad u) \grad\varphi dx dt+ \int_{S} -\varphi[(k \grad u) \cdot n_x] dS  \\*
+&=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt +  \int_{S} \varphi \mathcal{L} v \cdot n_x dS.  
+\end{eqnarray*}
+Now consider how $v \cdot n_x$ can be rewritten, buy starting with derivative of $u$ on $S$ which is constant. Thus,
+\begin{eqnarray}
+0 &=& \frac{d}{dt} u(x(t),t)\\
+&=& \grad_x u \cdot \frac{dx}{dt} + u_t  
+\end{eqnarray}
+where $\frac{dx}{dt} = v$. Normalizing this vector by $||(\grad_x u, u_t)||_{L_2}$ gives a unit vector normal to the spacial and time domains thus
+\begin{eqnarray}
+0 = v \cdot n_x + n_t. 
+\end{eqnarray}
+Using this relation and the fact the the jump of the heavyside function, $[H(u)]$ is one at $S$ we get
+
+\begin{eqnarray*}
+0 &=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt +  \int_{S} \varphi \mathcal{L} v \cdot n_x dS \\*
+&=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt -  \int_{S} \varphi \mathcal{L} n_t dS  \\*
+&=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt -  \int_{S} \varphi \mathcal{L} [H(u)] n_t dS.  
+\end{eqnarray*}
+Rewriting the normal in time into $n_t=n_t^1 = -n_t^2$ we get
+\begin{eqnarray*}
+0 &=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt -  \int_{S} \varphi \mathcal{L} [H(u)] n_t^1 dS\\*
+&=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt  -  \int_{\partial Q_1} \varphi \mathcal{L} H(u) n_t^1 dS +\int_{\partial Q_2} \varphi \mathcal{L} H(u) n_t^1 dS\\*
+&=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt  -  \int_{\partial Q_1} \varphi \mathcal{L} H(u) n_t^1 dS -\int_{\partial Q_2} \varphi \mathcal{L} H(u) n_t^2 dS.\\*
+\end{eqnarray*}
+
+Since $H(u)$ is constant on $Q_1$ and $Q_2$, we have $(H(u))_t = 0$ on $Q_1$ and $Q_2$. Adding two integrals that equate to zero gives 
+\begin{eqnarray*}
+0  &=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt  -  \int_{\partial Q_1} \varphi \mathcal{L} H(u) n_t^1 dS -\int_{\partial Q_2} \varphi \mathcal{L} H(u) n_t^2 dS\\*
+ &=& \iint_{Q_{1,2}}  u_t\varphi dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt  +\iint_{Q_1} \mathcal{L} (H(u))_t \varphi dx dt  -  \int_{\partial Q_1} \varphi \mathcal{L} H(u) n_t^1 dS \\* 
+ & &   \hspace{6cm}  +\iint_{Q_2} \mathcal{L} (H(u))_t \varphi dx dt -\int_{\partial Q_2} \varphi \mathcal{L} H(u) n_t^2 dS\\*
+ &=&- \iint_{Q_{1,2}}  u\varphi_t dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt  -\iint_{Q_1\cup Q_2} \mathcal{L} (H(u)) \varphi_t dx dt \\*
+ &=&- \iint_{Q_{1,2}} (u+ \mathcal{L} H(u)) \varphi_t dx dt  + \iint_{Q_{1,2}} (k \grad u) \grad\varphi dx dt  \\*
+  &=& \iint_{Q_{1,2}} (u+ \mathcal{L} H(u))_t \varphi dx dt  - \iint_{Q_{1,2}} \grad(k \grad u) \varphi dx dt.  
+\end{eqnarray*}
+Implying that in the weak sense
+
+
+
+\begin{eqnarray}
+\big(u+ \mathcal{L} H(u)\big)_t - \grad (k \grad u) = 0.
+\end{eqnarray}\\
+\vspace{2mm} 
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Phase Field Model}
+
+Derived from the Allen-Cahn equations and physical properties the governing equation for the phase field model is 
+
+\begin{eqnarray}
+\phi_t + \frac{1}{\varepsilon}g(\phi) - \varepsilon \Delta \phi =f
+\end{eqnarray}
+with suitable boundary and initial conditions, where $g(\phi) = \pd{}{G}{\phi}$ and $G$ is the double well potential. Consider a smooth double well potential, $G= (\phi^2-1)^2/4$ then $g = \phi^3 -\phi$. This double well potential has stable equilibria at $x=-1$ and $x=1$ and an unequal equilibrium at $x=0$.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Phase Field and Temperature Coupled System}
+
+\begin{eqnarray}
+\begin{cases}
+\phi_t + \frac{1}{\varepsilon}g(\phi) - \varepsilon \Delta \phi =\Lc T\\
+\pd{}{}{t}\left(T+\frac{\Lc}{2} \phi \right) - \grad \cdot (D \grad T) = 0
+\end{cases}
+\end{eqnarray}
+
+                                     
